@@ -502,3 +502,4 @@ bool WSA_DisplayFrame(void *wsa, uint16 frameNext, uint16 posX, uint16 posY, Scr
 	GFX_Screen_SetDirty(screenID, posX, posY, posX + header->width, posY + header->height);
 	return true;
 }
+MSVC_PACKED_END

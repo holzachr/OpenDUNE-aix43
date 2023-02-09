@@ -26,6 +26,10 @@
 	#define __LITTLE_ENDIAN 1234
 	#define __BIG_ENDIAN 4321
 	#define __BYTE_ORDER __LITTLE_ENDIAN
+#elif defined(_AIX)
+	#define __LITTLE_ENDIAN 1234
+	#define __BIG_ENDIAN 4321
+	#define __BYTE_ORDER __BIG_ENDIAN
 #elif defined(__HAIKU__)
 	#include <posix/endian.h>
 #else
@@ -55,10 +59,12 @@ extern uint32 endian_bswap32(uint32 x);
 	#define LETOH16(x) endian_bswap16(x)
 #endif
 
+
 #define READ_LE_UINT16(p) ((uint16)(p)[0] | ((uint16)(p)[1] << 8))
 #define READ_LE_UINT32(p) ((uint32)(p)[0] | ((uint32)(p)[1] << 8) | ((uint32)(p)[2] << 16) | ((uint32)(p)[3] << 24))
 #define WRITE_LE_UINT16(p, value) ((p)[0] = ((value) & 0xFF), (p)[1] = (((value) >> 8) & 0xFF))
 
 #define READ_BE_UINT32(p) (((uint32)(p)[0] << 24) | ((uint32)(p)[1] << 16) | ((uint32)(p)[2] << 8) | (uint32)(p)[3])
+
 
 #endif /* OS_ENDIAN_H */

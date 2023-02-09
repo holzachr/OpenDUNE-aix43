@@ -49,6 +49,11 @@
 	#define MSVC_PACKED_END __pragma(pack(pop))
 	#pragma warning(disable:4102) /* unreferenced label */
 	#pragma warning(disable:4996) /* deprecated functions */
+#elif defined(__ibmxl__)
+    #undef MSVC_PACKED_BEGIN
+	#undef MSVC_PACKED_END
+	#define MSVC_PACKED_BEGIN #pragma(pack(1))
+	#define MSVC_PACKED_END #pragma(pack(pop))
 #elif defined(__TINYC__)
 	/* For Tiny C Compiler to pack the content of a struct, it needs the
 	 *  __attribute__((packed)) attribute on every member in the struct.
@@ -58,6 +63,20 @@
 	 *  but at least not very ugly). */
 	#undef PACK
 	#define PACK __attribute__((packed))
+#elif defined(_AIX)
+    #undef BIT_S8
+	#undef BIT_S16
+	#undef BIT_S32
+	#undef BIT_U8
+	#undef BIT_U16
+	#undef BIT_U32
+
+	#define BIT_S8  int32
+	#define BIT_S16 int32
+	#define BIT_S32 int32
+	#define BIT_U8  uint32
+	#define BIT_U16 uint32
+	#define BIT_U32 uint32
 #endif /* __GNUC__ / _MSC_VER / __TINYC__ */
 
 /* Compile time assertions. Prefer c++0x static_assert() */
@@ -80,12 +99,16 @@
 typedef unsigned char  uint8;
 typedef   signed char   int8;
 typedef unsigned short uint16;
+#if !defined(int16)
 typedef   signed short  int16;
+#endif
 #if defined(__HAIKU__)
 #include <SupportDefs.h>
 #else
 typedef unsigned int   uint32;
+#if !defined(int32)
 typedef   signed int    int32;
+#endif
 #endif
 assert_compile(sizeof(uint8 ) == 1);
 assert_compile(sizeof( int8 ) == 1);

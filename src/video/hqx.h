@@ -53,7 +53,9 @@
 typedef uint32 uint32_t;
 typedef uint8 uint8_t;
 #else
-#include <stdint.h>
+	#if !defined(_AIX)
+		#include <stdint.h>
+	#endif 
 #endif
 
 HQX_API void HQX_CALLCONV hqxInit(void);

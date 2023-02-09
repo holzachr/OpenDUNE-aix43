@@ -32,7 +32,9 @@
 #include "types.h"
 typedef uint32 uint32_t;
 #else
-#include <stdint.h>
+	#if !defined(_AIX)
+		#include <stdint.h>
+	#endif 
 #endif
 
 #define MASK_2     0x0000FF00

@@ -17,11 +17,13 @@
 #ifndef __SCALE2X_H
 #define __SCALE2X_H
 
+#if !defined(_AIX)
 #include <stdint.h>
+#endif
 
-typedef uint8_t scale2x_uint8;
-typedef uint16_t scale2x_uint16;
-typedef uint32_t scale2x_uint32;
+typedef unsigned char  scale2x_uint8;
+typedef unsigned short scale2x_uint16;
+typedef unsigned int   scale2x_uint32;
 
 /**
  * Enable the SSE2 implementation.
